@@ -1,0 +1,60 @@
+{
+    "name": "webisters/api",
+    "description": "Webisters API Project",
+    "license": "MIT",
+    "type": "project",
+    "keywords": [
+        "api",
+        "rest",
+        "microservice"
+    ],
+    "homepage": "https://webisters.com/packages/api",
+    "support": {
+        "email": "support@webisters.com",
+        "issues": "https://github.com/webisters/api/issues",
+        "forum": "https://github.com/webisters/forum",
+        "source": "https://github.com/webisters/api",
+        "docs": "https://webisters.com"
+    },
+    "funding": [
+        {
+            "type": "Webisters Sponsor",
+            "url": "https://webisters.com/sponsor"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "webisters/framework": "^1.0"
+    },
+    "require-dev": {
+        "webisters/webisters": "^1.0",
+        "webisters/coding-standard": "^1.0",
+        "jetbrains/phpstorm-attributes": "^1.2",
+        "phpunit/phpunit": "^11.5"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Api\\": "app/"
+        },
+        "classmap": [
+            "App.php"
+        ],
+        "files": [
+            "boot/init.php",
+            "boot/constants.php",
+            "boot/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Api\\": "tests/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
