@@ -12,55 +12,44 @@
 use Framework\Helpers\ArraySimple;
 use Framework\HTTP\Response;
 
-/**
- * Load helper files.
- *
- * @param array<int,string>|string $helper A list of helper names as array
- * or a helper name as string
- *
- * @return array<int,string> A list of all loaded files
- */
-function helpers(array | string $helper): array
-{
-    if (is_array($helper)) {
-        $files = [];
-        foreach ($helper as $item) {
-            $files[] = helpers($item);
+if (!function_exists('helpers')) {
+    function helpers(array | string $helper): array
+    {
+        if (is_array($helper)) {
+            $files = [];
+            foreach ($helper as $item) {
+                $files[] = helpers($item);
+            }
+            return array_merge(...$files);
         }
-        return array_merge(...$files);
+        $files = App::locator()->findFiles('Helpers/' . $helper);
+        foreach ($files as $file) {
+            require_once $file;
+        }
+        return $files;
     }
-    $files = App::locator()->findFiles('Helpers/' . $helper);
-    foreach ($files as $file) {
-        require_once $file;
-    }
-    return $files;
 }
 
-/**
- * Get a URL for a public asset.
- *
- * @param string $path The asset path relative to public/
- *
- * @return string
- */
-function asset(string $path): string
-{
-    $path = trim($path, '/');
-    $documentRoot = rtrim($_SERVER['DOCUMENT_ROOT'] ?? '', '/\\');
-    if ($documentRoot !== '') {
-        $direct = $documentRoot . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $path);
-        if (!is_file($direct)) {
-            $public = $documentRoot . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR
-                . str_replace('/', DIRECTORY_SEPARATOR, $path);
-            if (is_file($public)) {
-                return '/public/' . str_replace('\\', '/', $path);
+if (!function_exists('asset')) {
+    function asset(string $path): string
+    {
+        $path = trim($path, '/');
+        $documentRoot = rtrim($_SERVER['DOCUMENT_ROOT'] ?? '', '/\\');
+        if ($documentRoot !== '') {
+            $direct = $documentRoot . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $path);
+            if (!is_file($direct)) {
+                $public = $documentRoot . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR
+                    . str_replace('/', DIRECTORY_SEPARATOR, $path);
+                if (is_file($public)) {
+                    return '/public/' . str_replace('\\', '/', $path);
+                }
+            } else {
+                return '/' . str_replace('\\', '/', $path);
             }
-        } else {
-            return '/' . str_replace('\\', '/', $path);
         }
-    }
 
-    return '/public/' . $path;
+        return '/public/' . $path;
+    }
 }
 
 /**
@@ -139,9 +128,11 @@ function success_response($data, int $code = 200, ?string $message = null): Resp
  *
  * @return string
  */
-function current_url(): string
-{
-    return App::request()->getUrl()->toString();
+if (!function_exists('current_url')) {
+    function current_url(): string
+    {
+        return App::request()->getUrl()->toString();
+    }
 }
 
 if (!function_exists('env')) {
@@ -171,10 +162,12 @@ if (!function_exists('env')) {
  *
  * @return Response
  */
-function respond_not_found(): Response
-{
-    return error_response('Not Found', 404, [
-        'path' => App::request()->getUrl()->getPath(),
-        'method' => App::request()->getMethod(),
-    ]);
+if (!function_exists('respond_not_found')) {
+    function respond_not_found(): Response
+    {
+        return error_response('Not Found', 404, [
+            'path' => App::request()->getUrl()->getPath(),
+            'method' => App::request()->getMethod(),
+        ]);
+    }
 }
