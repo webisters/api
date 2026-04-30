@@ -144,24 +144,26 @@ function current_url(): string
     return App::request()->getUrl()->toString();
 }
 
-/**
- * Get an environment variable with optional default value.
- *
- * @param string $key The environment variable key (dot notation supported)
- * @param mixed $default The default value if not found
- *
- * @return mixed
- */
-function env(string $key, $default = null)
-{
-    $value = $_ENV[$key] ?? null;
-    
-    if ($value === null && str_contains($key, '.')) {
-        [$primary, $secondary] = array_pad(explode('.', $key, 2), 2, null);
-        $value = $_ENV[$primary][$secondary] ?? null;
+if (!function_exists('env')) {
+    /**
+     * Get an environment variable with optional default value.
+     *
+     * @param string $key The environment variable key (dot notation supported)
+     * @param mixed $default The default value if not found
+     *
+     * @return mixed
+     */
+    function env(string $key, $default = null)
+    {
+        $value = $_ENV[$key] ?? null;
+
+        if ($value === null && str_contains($key, '.')) {
+            [$primary, $secondary] = array_pad(explode('.', $key, 2), 2, null);
+            $value = $_ENV[$primary][$secondary] ?? null;
+        }
+
+        return $value ?? $default;
     }
-    
-    return $value ?? $default;
 }
 
 /**
