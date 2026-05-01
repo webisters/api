@@ -71,3 +71,10 @@ if (!defined('STORAGE_DIR')) {
 if (!defined('VENDOR_DIR')) {
 	define('VENDOR_DIR', ROOT_DIR . 'vendor' . \DIRECTORY_SEPARATOR);
 }
+
+/**
+ * Path to the webisters directory.
+ */
+if (!defined('WEBISTERS_DIR')) {
+	define('WEBISTERS_DIR', VENDOR_DIR . 'webisters' . \DIRECTORY_SEPARATOR);
+}
