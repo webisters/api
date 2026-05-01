@@ -10,8 +10,17 @@ Webisters API Project This project is intended as an application-level codebase 
 ## Setup
 ```bash
 composer global require webisters/webisters
-php webisters new-api api
+# Optional (Windows): automatically adds Composer global bin-dir to PATH
+composer global exec webisters setup
+
+# Create the project (preferred)
+webisters new-api api
+
+# If `webisters` is not on PATH yet, use the no-PATH fallback:
+# composer global exec webisters new-api api
+
 cd api
+composer install
 ```
 
 ## Run Locally
