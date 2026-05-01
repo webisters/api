@@ -9,5 +9,4 @@ composer.lock
 composer.phar
 phpstan.neon
 phpunit.xml
-.env.php
 composer.local.json
