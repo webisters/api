@@ -33,7 +33,7 @@ final class OneTest extends TestCase
         $response = $this->runApi($this->baseUrl);
         self::assertSame(200, $response['code']);
         self::assertStringContainsString('API is running', $response['body']);
-        self::assertSame('api.index', App::router()->getMatchedRoute()->getName());
+        self::assertSame('api.home.index', App::router()->getMatchedRoute()->getName());
     }
 
     public function testAbout() : void
@@ -41,13 +41,14 @@ final class OneTest extends TestCase
         $response = $this->runApi($this->baseUrl . 'about');
         self::assertSame(200, $response['code']);
         self::assertStringContainsString('API project powered by Webisters framework', $response['body']);
-        self::assertSame('api.about', App::router()->getMatchedRoute()->getName());
+        self::assertSame('api.home.about', App::router()->getMatchedRoute()->getName());
     }
 
     public function testNotFound() : void
     {
         $response = $this->runApi($this->baseUrl . 'wakawaka');
         self::assertSame(404, $response['code']);
-        self::assertStringContainsString('Route not found', $response['body']);
+        self::assertStringContainsString('"message": "Not Found"', $response['body']);
+        self::assertStringContainsString('"path": "/wakawaka"', $response['body']);
     }
 }
