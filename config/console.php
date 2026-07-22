@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of App Project.
+ * This file is part of API Project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -20,7 +20,7 @@ foreach ([
     Webisters\Commands\MakeView::class,
     Webisters\Commands\RouteList::class,
 ] as $command) {
-    if (\class_exists($command)) {
+    if (class_exists($command)) {
         $commands[] = $command;
     }
 }

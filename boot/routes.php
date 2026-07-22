@@ -9,8 +9,8 @@ use Framework\Routing\RouteCollection;
 
 App::router()->serve(
     null,
-    static function (RouteCollection $routes): void {
-        $routes->namespace('Api\\Controllers', [
+    static function (RouteCollection $routes) : void {
+        $routes->namespace('Api\Controllers', [
             $routes->get('/', 'Home::index', 'api.home.index'),
             $routes->get('/about', 'Home::about', 'api.home.about'),
         ]);

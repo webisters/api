@@ -9,11 +9,10 @@
  * @package api
  */
 
-use Framework\Helpers\ArraySimple;
 use Framework\HTTP\Response;
 
 if (!function_exists('helpers')) {
-    function helpers(array | string $helper): array
+    function helpers(array | string $helper) : array
     {
         if (is_array($helper)) {
             $files = [];
@@ -31,15 +30,15 @@ if (!function_exists('helpers')) {
 }
 
 if (!function_exists('asset')) {
-    function asset(string $path): string
+    function asset(string $path) : string
     {
         $path = trim($path, '/');
         $documentRoot = rtrim($_SERVER['DOCUMENT_ROOT'] ?? '', '/\\');
         if ($documentRoot !== '') {
-            $direct = $documentRoot . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $path);
+            $direct = $documentRoot . \DIRECTORY_SEPARATOR . str_replace('/', \DIRECTORY_SEPARATOR, $path);
             if (!is_file($direct)) {
-                $public = $documentRoot . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR
-                    . str_replace('/', DIRECTORY_SEPARATOR, $path);
+                $public = $documentRoot . \DIRECTORY_SEPARATOR . 'public' . \DIRECTORY_SEPARATOR
+                    . str_replace('/', \DIRECTORY_SEPARATOR, $path);
                 if (is_file($public)) {
                     return '/public/' . str_replace('\\', '/', $path);
                 }
@@ -61,18 +60,18 @@ if (!function_exists('asset')) {
  *
  * @return Response
  */
-function json_response($data, int $code = 200, array $headers = []): Response
+function json_response($data, int $code = 200, array $headers = []) : Response
 {
     $response = App::response();
     $response->setStatusCode($code);
-    
+
     foreach ($headers as $name => $value) {
         $response->setHeader($name, $value);
     }
-    
+
     $response->setHeader('Content-Type', 'application/json; charset=UTF-8');
     $response->setBody(json_encode($data, \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT));
-    
+
     return $response;
 }
 
@@ -85,18 +84,18 @@ function json_response($data, int $code = 200, array $headers = []): Response
  *
  * @return Response
  */
-function error_response(string $message, int $code = 400, $details = null): Response
+function error_response(string $message, int $code = 400, $details = null) : Response
 {
     $data = [
         'success' => false,
         'message' => $message,
         'code' => $code,
     ];
-    
+
     if ($details !== null) {
         $data['details'] = $details;
     }
-    
+
     return json_response($data, $code);
 }
 
@@ -109,17 +108,17 @@ function error_response(string $message, int $code = 400, $details = null): Resp
  *
  * @return Response
  */
-function success_response($data, int $code = 200, ?string $message = null): Response
+function success_response($data, int $code = 200, ?string $message = null) : Response
 {
     $response = [
         'success' => true,
         'data' => $data,
     ];
-    
+
     if ($message !== null) {
         $response['message'] = $message;
     }
-    
+
     return json_response($response, $code);
 }
 
@@ -129,7 +128,7 @@ function success_response($data, int $code = 200, ?string $message = null): Resp
  * @return string
  */
 if (!function_exists('current_url')) {
-    function current_url(): string
+    function current_url() : string
     {
         return App::request()->getUrl()->toString();
     }
@@ -163,7 +162,7 @@ if (!function_exists('env')) {
  * @return Response
  */
 if (!function_exists('respond_not_found')) {
-    function respond_not_found(): Response
+    function respond_not_found() : Response
     {
         return error_response('Not Found', 404, [
             'path' => App::request()->getUrl()->getPath(),

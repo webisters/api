@@ -13,7 +13,7 @@ use Framework\Routing\RouteActions;
 
 final class Home extends RouteActions
 {
-    public function index(): Response
+    public function index() : Response
     {
         return success_response([
             'message' => 'API is running.',
@@ -21,7 +21,7 @@ final class Home extends RouteActions
         ]);
     }
 
-    public function about(): Response
+    public function about() : Response
     {
         return success_response([
             'message' => 'API project powered by Webisters framework.',
@@ -29,7 +29,7 @@ final class Home extends RouteActions
         ]);
     }
 
-    public function notFound(): Response
+    public function notFound() : Response
     {
         return respond_not_found();
     }
