@@ -1,1 +1,1 @@
-{"version":2,"defects":[],"times":{"Tests\\Api\\OneTest::testConfigs":6.205,"Tests\\Api\\OneTest::testIndex":0.195,"Tests\\Api\\OneTest::testAbout":0.04,"Tests\\Api\\OneTest::testNotFound":0.038}}
+{"version":2,"defects":[],"times":{"Tests\\Api\\OneTest::testConfigs":3.588,"Tests\\Api\\OneTest::testIndex":0.139,"Tests\\Api\\OneTest::testAbout":0.043,"Tests\\Api\\OneTest::testNotFound":0.031}}

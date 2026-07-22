@@ -16,7 +16,7 @@ use JetBrains\PhpStorm\ArrayShape;
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
-    * Run the API front controller.
+     * Run the API front controller.
      *
      * @param URL|string $url
      * @param string $method
